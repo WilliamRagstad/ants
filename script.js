@@ -161,6 +161,7 @@ function simulateTick() {
         // Determine this ant's rule for the current color
         const group = antGroups[ant.group];
         const rule = group.rules[currentColor];
+        if (!rule) continue;  // skip if no rule defined for this color
         // Turn the ant according to the rule
         const turn = rule.turn;
         // Update direction (0=up,1=right,2=down,3=left) with wrapping
