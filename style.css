@@ -1,0 +1,69 @@
+/* --- Layout and basic styles --- */
+body {
+    background: #111;
+    color: #eee;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 1em;
+}
+
+#controls {
+    margin-bottom: 0.5em;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5em;
+}
+
+#controls label {
+    margin-right: 0.25em;
+}
+
+#controls select,
+#controls input[type=range] {
+    vertical-align: middle;
+}
+
+/* Make the "grab" cursor for panning */
+#outer-container {
+    cursor: grab;
+}
+
+#outer-container:active {
+    cursor: grabbing;
+}
+
+/* --- Grid container and canvas styles --- */
+#outer-container {
+    position: relative;
+    width: 90vw;
+    height: 90vh;
+    /* responsive size ~ full viewport */
+    border: 1px solid #333;
+    /* slight border around grid area */
+    background: #000;
+    /* black background (state0) */
+    overflow: hidden;
+    /* hide content that pans outside */
+    margin: 0 auto;
+    /* center horizontally */
+}
+
+#inner-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+    /* zoom origin at top-left corner */
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* Ensure crisp pixels when zoomed (no blurring) */
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+}

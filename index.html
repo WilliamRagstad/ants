@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Langton's Ant Simulation</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <!-- Control Panel UI -->
+    <div id="controls">
+        <button id="toggleRun">Start</button>
+        <label for="speedSlider">Speed:</label>
+        <input type="range" id="speedSlider" min="1" max="10000" value="10" />
+        <span id="speedLabel">10 ticks/sec</span>
+        <button id="randomRulesBtn">New Random Group</button>
+        <label for="groupSelect">Group:</label>
+        <select id="groupSelect"></select>
+        <button id="addAntBtn">Add Ant</button>
+        <label for="colorCountSelect">Colors:</label>
+        <select id="colorCountSelect">
+            <!-- Options for 2 through 10 colors -->
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+        </select>
+        <button id="resetBtn">Reset</button>
+    </div>
+
+    <!-- Grid container with two overlay canvases: one for cells, one for ants -->
+    <div id="outer-container">
+        <div id="inner-container">
+            <!-- <canvas id="gridCanvas"></canvas>
+            <canvas id="antsCanvas"></canvas> -->
+            <canvas id="gridCanvas"></canvas>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
