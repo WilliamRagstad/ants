@@ -2,13 +2,6 @@ const groupSelect = document.getElementById('groupSelect');
 
 // --- Simulation Configuration and State ---
 const CELL_SIZE = 4;  // pixel size of each cell square (adjust as desired)
-// Ant group definitions: each group has a name, a display color for the ant, and will get a ruleset.
-let antGroups = [
-    // { name: "Langton's ant", color: "#FF0000", rules: [] },  // Red ants (Langton's ant base behavior)
-    // { name: "Group 2", color: "#0000FF", rules: [] },  // Blue ants (alternate behavior)
-    // { name: "Group 3", color: "#00FF00", rules: [] }   // Green ants (another variant)
-];
-initGroups();  // Initialize the default groups (e.g., Langton's ant)
 // The grid and ants state will be initialized in resetSimulation()
 let gridWidth, gridHeight, colorCount;
 let grid = [];   // 2D array for cell colors (state IDs)
@@ -16,6 +9,10 @@ let ants = [];   // list of ant objects: { x, y, dir, group }
 // Direction encoding for ants: 0=up, 1=right, 2=down, 3=left (clockwise)
 // Turn instruction mappings: 'L' = -90°, 'R' = +90°, 'S' = straight (0°), 'U' = 180°
 const turnDelta = { 'L': -1, 'R': 1, 'S': 0, 'U': 2 };
+
+// Ant group definitions: each group has a name, a display color for the ant, and will get a ruleset.
+let antGroups = [];
+initGroups();  // Initialize the default groups (e.g., Langton's ant)
 
 // --- Simulation Control Flags ---
 let isRunning = false;
@@ -47,11 +44,13 @@ function initGroups() {
     const initial = {
         name: "Langton's ant",
         color: "#FF0000",
-        rules: [
-            { turn: 'R', newColor: 1 },  // turn right, paint next color (1)
-            { turn: 'L', newColor: 0 },  // turn left, paint previous color (0)
-        ]
+        rules: []
     };
+    for (let state = 0; state < colorCount; state++) {
+        let turnInstruction = state % 2 === 0 ? 'R' : 'L';  // alternate R, L (starting with R at state 0)
+        const newColor = (state + 1) % colorCount;
+        initial.rules.push({ turn: turnInstruction, newColor: newColor });
+    }
     antGroups.push(initial);  // add the first group (Langton's ant)
 
     const opt = document.createElement('option');
