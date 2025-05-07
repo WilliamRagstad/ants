@@ -117,7 +117,7 @@ function resetSimulation(newColorCount) {
     isRunning = false;
     toggleRunButton.textContent = "Start";
     // Set color count (number of cell states) for this run
-    let reset_ant_groups = newColorCount !== colorCount;
+    let reset_ant_groups = newColorCount !== colorCount || antGroups.length === 0;
     colorCount = newColorCount || parseInt(colorCountSelect.value);
     if (isNaN(colorCount) || colorCount < 2) colorCount = 2;
     // Resize grid dimensions to fit container at the given CELL_SIZE
@@ -255,6 +255,17 @@ addAntBtn.addEventListener('click', () => {
         const randDir = Math.floor(Math.random() * 4);
         ants.push({ x: randX, y: randY, dir: randDir, group: groupIndex });
     }
+    drawAnts();
+});
+
+const deleteGroupBtn = document.getElementById('deleteGroupBtn');
+deleteGroupBtn.addEventListener('click', () => {
+    const groupIndex = parseInt(groupSelect.value);
+    if (isNaN(groupIndex)) return;
+    ants = ants.filter(ant => ant.group !== groupIndex);
+    antGroups.splice(groupIndex, 1);
+    groupSelect.remove(groupIndex);
+    updateRulesDisplay();
     drawAnts();
 });
 
