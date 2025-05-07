@@ -67,3 +67,15 @@ canvas {
     image-rendering: -webkit-crisp-edges;
     image-rendering: pixelated;
 }
+
+#rulesPanel {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 200px;
+    padding: 0.5em;
+    background: rgba(40,40,40,0.5);
+    border: 1px solid #444;
+    overflow-y: auto;
+    max-height: 95vh;
+}
