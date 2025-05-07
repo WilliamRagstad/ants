@@ -258,6 +258,16 @@ addAntBtn.addEventListener('click', () => {
     drawAnts();
 });
 
+const deleteAntBtn = document.getElementById('deleteAntBtn');
+deleteAntBtn.addEventListener('click', () => {
+    const groupIndex = parseInt(groupSelect.value);
+    if (isNaN(groupIndex)) return;
+    const removeIndex = ants.findIndex(a => a.group === groupIndex);
+    if (removeIndex >= 0) {
+        ants.splice(removeIndex, 1);
+        drawAnts();
+    }
+});
 const deleteGroupBtn = document.getElementById('deleteGroupBtn');
 deleteGroupBtn.addEventListener('click', () => {
     const groupIndex = parseInt(groupSelect.value);
