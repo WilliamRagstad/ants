@@ -85,6 +85,7 @@ function resetSimulation(newColorCount) {
     isRunning = false;
     toggleRunButton.textContent = "Start";
     // Set color count (number of cell states) for this run
+    let reset_ant_groups = newColorCount !== colorCount;
     colorCount = newColorCount || parseInt(colorCountSelect.value);
     if (isNaN(colorCount) || colorCount < 2) colorCount = 2;
     // Resize grid dimensions to fit container at the given CELL_SIZE
@@ -129,9 +130,12 @@ function resetSimulation(newColorCount) {
     //         group.rules[state] = { turn: turnInstruction, newColor: newColor };
     //     }
     // });
-    groupSelect.innerHTML = "";  // clear existing options in the dropdown
-    antGroups = [];  // reset groups to empty array
-    initGroups();  // initialize groups with default rules
+    if (reset_ant_groups) {
+        groupSelect.innerHTML = "";  // clear existing options in the dropdown
+        antGroups = [];  // reset groups to empty array
+        initGroups();  // initialize groups with default rules
+        updateRulesDisplay();
+    }
     // Reset ants: start with one ant for Group 1 at the center (or random) by default
     ants = [];
     // Place initial ant for Group 1 (index 0)
