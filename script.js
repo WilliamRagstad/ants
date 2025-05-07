@@ -90,11 +90,12 @@ function updateRulesDisplay() {
     rulesPanel.innerHTML = '';
     for (let i = 0; i < antGroups.length; i++) {
         const g = antGroups[i];
+        const groupAntCount = ants.filter(ant => ant.group === i).length;
         const groupDiv = document.createElement('div');
         groupDiv.style.borderBottom = '1px solid #666';
         groupDiv.style.paddingBottom = '0.5em';
         groupDiv.style.marginBottom = '0.5em';
-        groupDiv.innerHTML = `<strong>${g.name}</strong>`;
+        groupDiv.innerHTML = `<strong>${g.name} (${groupAntCount} ants)</strong>`;
         g.rules.forEach((r, idx) => {
             const ruleDiv = document.createElement('div');
             ruleDiv.style.display = 'flex';
@@ -255,6 +256,7 @@ addAntBtn.addEventListener('click', () => {
         const randDir = Math.floor(Math.random() * 4);
         ants.push({ x: randX, y: randY, dir: randDir, group: groupIndex });
     }
+    updateRulesDisplay();
     drawAnts();
 });
 
@@ -264,9 +266,12 @@ deleteAntBtn.addEventListener('click', () => {
     if (isNaN(groupIndex)) return;
     const removeIndex = ants.findIndex(a => a.group === groupIndex);
     if (removeIndex >= 0) {
-        ants.splice(removeIndex, 1);
-        drawAnts();
+        let [removed] = ants.splice(removeIndex, 1);
+        // Draw the cell where the ant was removed to oveirride the ant color
+        gridCtx.fillStyle = colorMap[grid[removed.y][removed.x]] || "#FFFFFF";  // default to white if color not found
+        gridCtx.fillRect(removed.x * CELL_SIZE, removed.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
     }
+    updateRulesDisplay();
 });
 const deleteGroupBtn = document.getElementById('deleteGroupBtn');
 deleteGroupBtn.addEventListener('click', () => {
